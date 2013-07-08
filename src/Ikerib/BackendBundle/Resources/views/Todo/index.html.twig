@@ -1,0 +1,53 @@
+{% extends '::frontend.html.twig' %}
+
+{% block body -%}
+
+<section id="todoapp">
+  <header id="header">
+    <h1>todos</h1>
+    <form  id="new-todo" action="{{ path('todo_create') }}" method="post" {{ form_enctype(form) }}>
+      {{ form_errors(form) }}
+
+      {{ form_row(form.todo) }}
+
+
+      <div style="display:none;">
+        {{ form_rest(form) }}
+      </div>
+
+    </form>
+
+  </header>
+  <section id="main">
+    <form id="formtoggle" action="{{ path('todo_toggle') }}">
+      <input id="toggle-all" type="checkbox">
+    </form>
+    <label for="toggle-all">Mark all as complete</label>
+    <ul id="todo-list">
+      {% for entity in entities %}
+        <li data-todoid="lili" {% if entity.completed %}class="completed" {% endif %} data-id="{{ entity.id }}">
+          <div class="view" data-todoid="divdiv">
+            <a class="btnedit" href="#" data-todoid="{{ entity.id }}">
+              <input class="toggle" type="checkbox" {% if entity.completed %} checked {% endif %} >
+            </a>
+            <div class="todolist-label">
+              <label>{{ entity.todo }}</label>
+              <form action="{{ path('todo_delete', { 'id': entity.id , 'token': csrf_token(entity.csrfIntention('delete'))}) }}" method="post">
+                <button class="destroy"></button>
+              </form>
+            </div>
+          </div>
+          <input class="edit" value="{{ entity.todo }}">
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+  <footer id="footer">
+    <span id="todo-count"><strong id="elementsRemaining">{{ entities | length }}</strong> item left</span>
+    <a id="clear-completed" href="{{ path('todo_clearcompleted') }}">Clear completed</a>
+  </footer>
+</section>
+<footer id="info">
+  <p><a href="http://www.ikerib.com">#ikerib</a></p>
+</footer>
+{% endblock %}

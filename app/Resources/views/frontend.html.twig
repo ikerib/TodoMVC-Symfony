@@ -1,0 +1,40 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}TodoMVC - Symfony{% endblock %}
+
+{% block stylesheets %}
+{% stylesheets  '@BackendBundle/Resources/public/css/normalize.min.css'
+                '@BackendBundle/Resources/public/css/main.css'
+                '@BackendBundle/Resources/public/css/mibackend.css'
+                output='css/backend.css' filter='cssrewrite'  %}
+<link href="{{ asset_url }}" rel="stylesheet" type="text/css" />
+{% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+{% javascripts  '@BackendBundle/Resources/public/js/jquery-1.9.1.min.js'
+                '@BackendBundle/Resources/public/js/mifrontend.js'
+                output='js/todomvc.js' %}
+<script src="{{ asset_url }}" type="text/javascript"></script>
+{% endjavascripts %}
+<script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+{% endblock %}
+
+{% block body %}
+
+  <div id="logo"></div>
+
+    <div id="contenido">
+        {% block contenido %}
+
+        {% endblock %}
+    </div>
+
+  <footer>
+    <br>
+    <p><a href="http://www.ikerib.com">#ikerib 2013</a></p>
+  </footer>
+  </div> <!-- /container -->
+
+{% endblock %}

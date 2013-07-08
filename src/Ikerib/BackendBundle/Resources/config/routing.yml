@@ -1,0 +1,3 @@
+BackendBundle_todo:
+    resource: "@BackendBundle/Resources/config/routing/todo.yml"
+    prefix:   /
